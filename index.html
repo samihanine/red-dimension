@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Red Dimension</title>
+    <style>
+      body, html, canvas {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+      @font-face {
+          font-family: 'KulminoituvaRegular';
+          src: url('Font/Aguda Bold.ttf');
+      }
+      @font-face {
+          font-family: 'Arial';
+          src: url('Font/OldLondon.ttf');
+      }
+      @font-face {
+          font-family: 'Arial';
+          src: url('Font/TaylorGothic.otf');
+      }
+    </style>
+    <link rel="icon" type="png" href="Image/Interface/logo.png" />
+  </head>
+  <body>
+    <canvas id='c1' style='background-color: #EEE;'></canvas>
+
+    <script src="Script/game.js" type="text/javascript"></script>
+    <script src="Script/welcome.js" type="text/javascript"></script>
+    <script src="Script/languages.js" type="text/javascript"></script>
+    <script src="Script/introduction.js" type="text/javascript"></script>
+    <script src="Script/goodbye.js" type="text/javascript"></script>
+
+    <script src="Script/asset.js" type="text/javascript"></script>
+    <script src="Script/entity.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+
+      let canvas = document.getElementById('c1');
+      let ctx = canvas.getContext('2d');
+      window.onload = create;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      var game = new Game(Math.round(window.innerHeight/9));
+      var player;
+
+      var save = {
+        state : true,
+        map : [], maps : [], current_map : 0, entity : [],
+        vie : 0, gold : 0, energie : 0, walk : {}, px : 0, py : 0, x : 0, y : 0, dir : 0, sort : {}, var : {}
+      }
+
+      //                  0          1               2             3               4         5            6            7       8            9
+  		game.load_img(['Entity/Spider/spider.png','Animation/coin.png','Decors/flowers_pink.png','Decors/tree3.png','Decors/flowers_red.png','Decors/flower_yellow.png','Decors/tree1.png','Decors/fence_left.png','Entity/Player/player.png','Decors/fence_right.png']);
+      //                        10                 11                  12                     13                      14                    15              16                     17                18                19
+      game.load_img(['Decors/barrel.png','Decors/stone.png','Decors/house2.png','Entity/Gobelin/gobelin.png','Animation/water.png','Decors/tree2.png','Decors/house3.png','Decors/bush.png','Decors/bush2.png','Decors/table.png']);
+      //                 20                      21                      24                      25             26                    27                28            29
+      game.load_img(['Decors/switch1.png','Decors/house1.png','Interface/background.png','Interface/icon.png','Decors/switch2.png','Decors/grave.png','Decors/chest_Closed_Right.png','Decors/chest_Open_Right.png','Decors/wall_Left.png','Decors/wall_Right.png']);
+      //                  30                                      31                 32                      33                  34                        35                      36                     37                            38                    39
+      game.load_img(['Interface/icon_energy.png','Interface/icon_heart.png','Decors/windows.png','Decors/obstacle.png','Entity/Gobelin/corpse.png','Entity/Gobelin/attack.png','Decors/sign.png','Entity/Spider/attack.png','Entity/Spider/corpse.png','Entity/Clone/clone.png'])
+      //                  40                               41                         42                     43                 44                        45                               46                     47                 48                      49
+      game.load_img(['Decors/chest_Closed_Left.png','Interface/spell_1.png','Interface/spell_2.png','Interface/spell_3.png','Animation/heal.png','Decors/chest_Open_Left.png','Animation/campfire.png','Interface/clock.png','Decors/obstacle2.png','Decors/grass.png'])
+      //                50                      51           52                   53                             54                         55                   56                   57                    58                  59
+      game.load_img(['Decors/plant.png','Decors/stone2.png','Decors/bridge.png','Interface/background2.png','Interface/background3.png','Interface/box.png','Interface/nav.png','Interface/god.png','Interface/logo.png','Interface/baby.png'])
+
+      game.load_img(['Interface/Other/Twitter_Bird.png','Interface/Other/Totorotale.png'])
+      // ---            0                    1       2          3              4                5                6              7            8             9         10       11       12         13         14
+      game.load_audio(['background.mp3','error.mp3','heal.mp3','clone_death.mp3','spider_death.mp3','goblin_death.mp3','switch.mp3','coin.mp3','new_spell.mp3','clone.mp3','hit.mp3','fire.mp3','flame.mp3','background2.mp3']);
+
+
+      function create(){
+
+        if (game.load == game.loadmax) {
+          languages('fr');
+          game.ini();
+          update();
+        }
+
+      }
+
+      function update(){
+
+      	window.requestAnimationFrame(update);
+
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+        switch (game.state) {
+          case 1:
+            welcome();
+          break;
+          case 2:
+            if (Date.now() - game.time > game.tick) {
+              canvas.width = window.innerWidth;
+              canvas.height = window.innerHeight;
+
+        			game.time = Date.now();
+              game.update();
+        		}
+          break;
+          case 3:
+            intro();
+          break;
+          case 4:
+            outro();
+          break;
+        }
+      }
+
+      // ----
+
+      var mousex = 0;
+      var mousey = 0;
+      document.onmousemove = function(event) {
+        mousex = event.clientX;
+        mousey = event.clientY;
+      }
+
+      var clic = -1;
+      document.onmousedown = function(event) {
+        clic = event.button;
+      }
+
+      let keyState = [];
+      document.addEventListener(
+          'keydown',
+          (event)=>{
+              keyState[event.keyCode || event.which] = true;
+          }
+      );
+      document.addEventListener(
+          'keyup',
+          (event)=>{
+              keyState[event.keyCode || event.which] = false;
+          }
+      );
+      var keycode;
+
+      document.onkeydown = function(event) {
+        keycode = event.keyCode;
+      }
+
+      // ----
+
+    </script>
+  </body>
+</html>
