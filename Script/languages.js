@@ -62,7 +62,7 @@ function languages(lang){
       tuto1b : "l'icône en haut à droite de l'écran.",
       tuto1c : "Téléporte-toi afin de passer la rivière et récupérer un maximum de pièces.",
 
-      tuto2a : "Des interupteurs interdimensionnels sont présents sur cette map.",
+      tuto2a : "Des interrupteurs interdimensionnels sont présents sur cette map.",
       tuto2b : "Les actionner aura un impact sur l'autre dimension.",
       tuto2c : "Utilise-les pour accéder au moulin.",
 
