@@ -35,7 +35,7 @@ function languages(lang){
       sort1a : "Émet une flamme qui inflige des dégâts aux",
       sort1b : "ennemis qu'elle touche.",
       sort1c : "(pour lancer le sort, il vous suffit de cliquer dans",
-      sort1d : "la direction qui vous souhaitez viser.)",
+      sort1d : "la direction que vous souhaitez viser.)",
 
       sort2a : "Invoque un double qui attaque les ennemis à",
       sort2b : "proximité du joueur.",
@@ -75,7 +75,7 @@ function languages(lang){
 
       i1 : "Il existe une légende selon laquelle une boîte serait cachée quelque part...",
       i2 : "Cette boîte pourrait réaliser n'importe quel voeu, quel qu’il soit,",
-      i3 : "sans aucunes règles ou limites.",
+      i3 : "sans aucune règle ou limite.",
       i4 : "Cependant voilà des siècles que les humains ne cessent de la chercher",
       i4b : "sans aucun résultat.",
       i5 : "Alors les hommes demandèrent aux dieux de leur apporter une aide pour la trouver.",
