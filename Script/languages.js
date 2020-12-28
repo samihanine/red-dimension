@@ -86,8 +86,8 @@ function languages(lang){
       i10 : "sur la mystérieuse boîte.",
 
       e1 : "Ce jeu est une démo, l'objectif principal de celle-ci est d'illustrer une idée de gameplay.",
-      e2 : "Il est donc probable que cette démo n'ai jamais de suite.",
-      e3 : "Les musiques et sons utilisés proviennent de bibliothèques libres de droit.",
+      e2 : "Il est donc probable que cette démo n'ait jamais de suite.",
+      e3 : "Les musiques et sons utilisés proviennent de bibliothèques libres de droits.",
       e4 : "Une partie des images utilisées ont été récupérées à divers endroits sur internet, elles ne m'appartiennent pas.",
       e5 : "Si vous avez des suggestions concernant le jeu ou que vous rencontrez des bugs critiques,",
       e6 : "vous êtes libre de me contacter via twitter.",
