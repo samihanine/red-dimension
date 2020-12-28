@@ -48,7 +48,7 @@ function languages(lang){
       sort3d : "de la dimension rouge.",
 
       tombea : "Il s'agit d'une tombe sur laquelle est",
-			tombeb : 'gravée :',
+			tombeb : 'gravé :',
 			tombec : 'Libitina, 532 - 556',
 
       pancarte : '        "Territoire des gobelins"',
